@@ -56,20 +56,20 @@ struct gameState {
     int numPlayers; //number of players
     int supplyCount[treasure_map+1];  //this is the amount of a specific type of card given a specific number.
     int embargoTokens[treasure_map+1];
-    int outpostPlayed;
-    int outpostTurn;
-    int whoseTurn;
-    int phase;
+    int outpostPlayed; // flag indicating if an outpost was played during the turn
+    int outpostTurn; // 
+    int whoseTurn; // set to the current player's turn
+    int phase; // keeps track of the phase number within the game
     int numActions; /* Starts at 1 each turn */
     int coins; /* Use as you see fit! */
     int numBuys; /* Starts at 1 each turn */
-    int hand[MAX_PLAYERS][MAX_HAND];
-    int handCount[MAX_PLAYERS];
-    int deck[MAX_PLAYERS][MAX_DECK];
-    int deckCount[MAX_PLAYERS];
-    int discard[MAX_PLAYERS][MAX_DECK];
-    int discardCount[MAX_PLAYERS];
-    int playedCards[MAX_DECK];
+    int hand[MAX_PLAYERS][MAX_HAND];  // holds the cards within each player's hand
+    int handCount[MAX_PLAYERS]; // holds the number of cards within each player's hand
+    int deck[MAX_PLAYERS][MAX_DECK]; // holds the cards within each player's deck
+    int deckCount[MAX_PLAYERS]; // holds the number of cards in each player's deck
+    int discard[MAX_PLAYERS][MAX_DECK]; // holds the cards within each player's discard pile
+    int discardCount[MAX_PLAYERS]; // holds the number of cards in each player's discard pile
+    int playedCards[MAX_DECK]; // 
     int playedCardCount;
 };
 
