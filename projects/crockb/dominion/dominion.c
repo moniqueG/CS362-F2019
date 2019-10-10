@@ -1369,5 +1369,67 @@ int updateCoins(int player, struct gameState *state, int bonus)
 }
 
 
+/* assignment #2 - a function to play the baron card */
+int playBaron(int choice1, struct gameState *state)
+{
+
+    int currentPlayer = whoseTurn(state);
+
+    state->numBuys++;//Increase buys by 1!
+
+        if (choice1 > 0) { //Boolean true or going to discard an estate
+            int p = 0;//Iterator for hand!
+            int card_not_discarded = 1;//Flag for discard set!
+            while(card_not_discarded) {
+                if (state->hand[currentPlayer][p] == estate) { //Found an estate card!
+                    state->coins += 4;//Add 4 coins to the amount of coins
+                    discardCard(p, currentPlayer, gameState, 0);
+                    card_not_discarded = 0;//Exit the loop
+                }
+                else if (p > state->handCount[currentPlayer]) {
+                    if(DEBUG) {
+                        printf("No estate cards in your hand, invalid choice\n");
+                        printf("Must gain an estate if there are any\n");
+                    }
+                    if (supplyCount(estate, state) > 0) {
+                        gainCard(estate, state, 0, currentPlayer);
+
+                        if (supplyCount(estate, state) == 0) {
+                            isGameOver(state);
+                        }
+                    }
+                    card_not_discarded = 0;//Exit the loop
+                }
+
+                else {
+                    p++;//Next card
+                }
+            } 
+        } 
+
+        // else - player did not elect to discard an estate
+        else {
+            if (supplyCount(estate, state) > 0) {
+                gainCard(estate, state, 0, currentPlayer);//Gain an estate
+
+                if (supplyCount(estate, state) == 0) {
+                    isGameOver(state);
+                }
+            }
+        }
+
+        // assignment #2 addition - discard the baron
+        for (p = 0; p < state->handCount[currentPlayer]; p++)
+        {
+            if (state->hand[currentPlayer][p] == baron) {
+                discardCard(p, int currentPlayer, state, 0);
+                break;
+            }
+        }
+
+        return 0;
+}
+
+
 //end of dominion.c
 
