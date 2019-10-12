@@ -1370,10 +1370,11 @@ int updateCoins(int player, struct gameState *state, int bonus)
 
 
 /* assignment #2 - a function to play the baron card */
-int playBaron(int choice1, struct gameState *state)
+int playBaron(int choice1, struct gameState *state, int handPos)
 {
 
     int currentPlayer = whoseTurn(state);
+    discardCard(handPos, int currentPlayer, state, 0);
 
     state->numBuys++;//Increase buys by 1!
 
@@ -1418,23 +1419,18 @@ int playBaron(int choice1, struct gameState *state)
             }
         }
 
-        // assignment #2 addition - discard the baron
-        for (p = 0; p < state->handCount[currentPlayer]; p++)
-        {
-            if (state->hand[currentPlayer][p] == baron) {
-                discardCard(p, int currentPlayer, state, 0);
-                break;
-            }
-        }
-
         return 0;
 }
 
 
 /* assignment #2 - a function to play the minion card */
 
-int playMinion(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
+int playMinion(int choice1, int choice2, struct gameState *state, int handPos)
 {
+
+    int i;
+    int j;
+    int currentPlayer = whoseTurn(state);
 
     //+1 action
     state->numActions++;
@@ -1451,7 +1447,7 @@ int playMinion(int card, int choice1, int choice2, int choice3, struct gameState
         //discard hand
         while(numHandCards(state) > 0)
         {
-            discardCard(handPos, currentPlayer, state, 0);
+            discardCard(0, currentPlayer, state, 0);
         }
 
         //draw 4
@@ -1470,7 +1466,7 @@ int playMinion(int card, int choice1, int choice2, int choice3, struct gameState
                     //discard hand
                     while( state->handCount[i] > 0 )
                     {
-                        discardCard(handPos, i, state, 0);
+                        discardCard(0, i, state, 0);
                     }
 
                     //draw 4
@@ -1485,6 +1481,74 @@ int playMinion(int card, int choice1, int choice2, int choice3, struct gameState
     }
     return 0;
 }
+
+
+/* assignment #2 - a function to play the ambassador card */
+int playAmbassador(int choice1, int choice2, int choice3, struct gameState *state, int handPos)
+{
+
+    int currentPlayer = whoseTurn(state);
+    int j = 0;      //used to check if player has enough cards to discard
+
+    // impossible choice
+    if (choice2 > 2 || choice2 < 0)
+    {
+        return -1;
+    }
+
+    // player chose to reveal card they played (not possible)
+    if (choice1 == handPos)
+    {
+        return -1;
+    }
+
+    // count the number of cards of a specific kind chosen by the user
+        for (i = 0; i < state->handCount[currentPlayer]; i++)
+        {
+            if (i != handPos && state->hand[currentPlayer][i]  == state->hand[currentPlayer][choice1] && i != choice1)
+            {
+                j++;
+            }
+        }
+        if (j < choice2)
+        {
+            return -1;
+        }
+
+        if (DEBUG)
+            printf("Player %d reveals card number: %d\n", currentPlayer, state->hand[currentPlayer][choice1]);
+
+        //increase supply count for choosen card by amount being discarded
+        state->supplyCount[state->hand[currentPlayer][choice1]] += choice2;
+
+        //each other player gains a copy of revealed card
+        for (i = 0; i < state->numPlayers; i++)
+        {
+            if (i != currentPlayer)
+            {
+                gainCard(state->hand[currentPlayer][choice1], state, 0, i);
+            }
+        }
+
+        //discard played card from hand
+        discardCard(handPos, currentPlayer, state, 0);
+
+        //trash copies of cards returned to supply
+        for (j = 0; j < choice2; j++)
+        {
+            for (i = 0; i < state->handCount[currentPlayer]; i++)
+            {
+                if (state->hand[currentPlayer][i] == state->hand[currentPlayer][choice1])
+                {
+                    discardCard(i, currentPlayer, state, 1);
+                    break;
+                }
+            }
+        }
+
+        return 0;
+}
+
 
 //end of dominion.c
 
