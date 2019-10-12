@@ -1253,7 +1253,7 @@ int playMinion(int choice1, int choice2, struct gameState *state, int handPos)
 
 
 /* assignment #2 - a function to play the ambassador card */
-int playAmbassador(int choice1, int choice2, int choice3, struct gameState *state, int handPos)
+int playAmbassador(int choice1, int choice2, struct gameState *state, int handPos)
 {
     int i;
     int currentPlayer = whoseTurn(state);
