@@ -1636,5 +1636,47 @@ int playTribute(struct gameState *state, int handPos);
 }
 
 
+int playMine(int choice1, int choice2, struct gameState *state, int handPos)
+{
+
+        // choice 1 - card to be trashed
+        // choice 2 - card to be purchased
+        int currentPlayer = whoseTurn(state);
+        int j = state->hand[currentPlayer][choice1];  //store card we will trash
+
+        // discard the played card
+        discardCard(handPos, currentPlayer, state, 0);
+
+        if (j < copper || j > gold)
+        {
+            return -1;
+        }
+
+        if (choice2 > treasure_map || choice2 < curse)
+        {
+            return -1;
+        }
+
+        if ( (getCost(j + 3) < getCost(choice2) )
+        {
+            return -1;
+        }
+
+        gainCard(choice2, state, 2, currentPlayer);
+
+        //discard trashed card
+        for (i = 0; i < state->handCount[currentPlayer]; i++)
+        {
+            if (state->hand[currentPlayer][i] == j)
+            {
+                discardCard(i, currentPlayer, state, 0);
+                break;
+            }
+        }
+
+        return 0;
+
+}
+
 //end of dominion.c
 
