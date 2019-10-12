@@ -1153,7 +1153,6 @@ int playBaron(int choice1, struct gameState *state, int handPos)
             while(card_not_discarded) {
                 if (state->hand[currentPlayer][p] == estate) { //Found an estate card!
                     state->coins += 4;//Add 4 coins to the amount of coins
-                    discardCard(p, currentPlayer, state, 0);
                     card_not_discarded = 0;//Exit the loop
                 }
                 else if (p > state->handCount[currentPlayer]) {
@@ -1163,6 +1162,7 @@ int playBaron(int choice1, struct gameState *state, int handPos)
                     }
                     if (supplyCount(estate, state) > 0) {
                         gainCard(estate, state, 0, currentPlayer);
+                        state->supplyCount[estate]--;
 
                         if (supplyCount(estate, state) == 0) {
                             isGameOver(state);
@@ -1201,9 +1201,6 @@ int playMinion(int choice1, int choice2, struct gameState *state, int handPos)
     int j;
     int currentPlayer = whoseTurn(state);
 
-    //+1 action
-    state->numActions++;
-
     //discard card from hand
     discardCard(handPos, currentPlayer, state, 0);
 
@@ -1241,7 +1238,7 @@ int playMinion(int choice1, int choice2, struct gameState *state, int handPos)
                     //draw 4
                     for (j = 0; j < 4; j++)
                     {
-                        drawCard(i, state);
+                        drawCard(j, state);
                     }
                 }
             }
@@ -1272,7 +1269,7 @@ int playAmbassador(int choice1, int choice2, struct gameState *state, int handPo
     }
 
     // count the number of cards of a specific kind chosen by the user
-        for (i = 0; i < state->handCount[currentPlayer]; i++)
+        for (i = 0; i <= state->handCount[currentPlayer]; i++)
         {
             if (i != handPos && state->hand[currentPlayer][i]  == state->hand[currentPlayer][choice1] && i != choice1)
             {
@@ -1295,7 +1292,7 @@ int playAmbassador(int choice1, int choice2, struct gameState *state, int handPo
         {
             if (i != currentPlayer)
             {
-                gainCard(state->hand[currentPlayer][choice1], state, 0, i);
+                gainCard(state->hand[currentPlayer][choice2], state, 0, i);
             }
         }
 
@@ -1364,16 +1361,15 @@ int playTribute(struct gameState *state, int handPos)
                 shuffle(nextPlayer,state);//Shuffle the deck
             }
             tributeRevealedCards[0] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1];
-            discardCard(state->deckCount[nextPlayer]-1, nextPlayer, state, 0);
+            discardCard(state->deckCount[nextPlayer], nextPlayer, state, 0);
 
             tributeRevealedCards[1] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1];
-            discardCard(state->deckCount[nextPlayer]-1, nextPlayer, state, 0);
+            discardCard(state->deckCount[nextPlayer], nextPlayer, state, 0);
         }
 
         if (tributeRevealedCards[0] == tributeRevealedCards[1]) { //If we have a duplicate card, just drop one
             state->playedCards[state->playedCardCount] = tributeRevealedCards[1];
             state->playedCardCount++;
-            tributeRevealedCards[1] = -1;
         }
 
         for (i = 0; i < 2; i ++) {
@@ -1432,14 +1428,14 @@ int playMine(int choice1, int choice2, struct gameState *state, int handPos)
             return -1;
         }
 
-        gainCard(choice2, state, 2, currentPlayer);
+        gainCard(choice1, state, 2, currentPlayer);
 
         //discard trashed card
         for (i = 0; i < state->handCount[currentPlayer]; i++)
         {
             if (state->hand[currentPlayer][i] == j)
             {
-                discardCard(i, currentPlayer, state, 0);
+                discardCard(j, currentPlayer, state, 0);
                 break;
             }
         }
