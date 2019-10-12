@@ -128,7 +128,7 @@ int getWinners(int players[MAX_PLAYERS], struct gameState *state);
 /* Set array position of each player who won (remember ties!) to
    1, others to 0 */
 
-int playBaron(int choice1, struct gameState *state);
+int playBaron(int choice1, struct gameState *state, int handPos)
 /* a function that will execute the actions of the baron card */
 
 int playMinion(int choice1, int choice2, struct gameState *state, int handPos);
@@ -140,7 +140,7 @@ int playAmbassador(int choice1, int choice2, struct gameState *state, int handPo
 int playTribute(struct gameState *state, int handPos);
 /* a function that will execute the actions of the tribute card */
 
-int playMine(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus);
+int playMine(int choice1, int choice2, struct gameState *state, int handPos);
 /* a function that will execute the actions of the mine card */
 
 #endif

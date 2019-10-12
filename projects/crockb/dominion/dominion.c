@@ -690,7 +690,6 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     int index;
     int currentPlayer = whoseTurn(state);
     int nextPlayer = currentPlayer + 1;
-    int result;
 
     int tributeRevealedCards[2] = {-1, -1};
     int temphand[MAX_HAND];// moved above the if statement
@@ -808,8 +807,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
     case mine:
 
-        result = playMine(choice1, choice2, state, handPos);
-        return result;
+        // assignment 2 - replaced with function
+        return playMine(choice1, choice2, &state, handPos);
 
     case remodel:
         j = state->hand[currentPlayer][choice1];  //store card we will trash
@@ -862,8 +861,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     case baron:
 
         // assignment 2 - replaced with function
-        result = playBaron(choice1, state, handPos);
-        return result;
+        return playBaron(choice1, &state, handPos);
 
 
     case great_hall:
@@ -878,9 +876,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         return 0;
 
     case minion:
-        
-        result = playMinion(choice1, choice2, state, handPos);
-        return result;
+        // assignment 2 - replaced with function
+        return playMinion(choice1, choice2, &state, handPos);
 
     case steward:
         if (choice1 == 1)
@@ -907,13 +904,13 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
     case tribute:
 
-        result = playTribute(state, handPos);
-        return result;
+        // assignment 2 - replaced with function
+        return playTribute(&state, handPos);
 
     case ambassador:
 
-        result = playAmbassador(choice1, choice2, choice3, state, handPos);
-        return result;
+        // assignment 2 - replaced with function
+        return playAmbassador(choice1, choice2, choice3, &state, handPos);
 
     case cutpurse:
 
@@ -1430,7 +1427,7 @@ int playMine(int choice1, int choice2, struct gameState *state, int handPos)
             return -1;
         }
 
-        if ( (getCost(j + 3) < getCost(choice2) )
+        if ( (getCost(j + 3)) < getCost(choice2) )
         {
             return -1;
         }
