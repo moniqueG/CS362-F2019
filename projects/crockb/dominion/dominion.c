@@ -1322,7 +1322,7 @@ int playAmbassador(int choice1, int choice2, int choice3, struct gameState *stat
 
 int playTribute(struct gameState *state, int handPos);
 {
-
+    int i;
     int currentPlayer = whoseTurn(state);
     int nextPlayer = currentPlayer + 1;
     int tributeRevealedCards[2] = {-1, -1};
@@ -1411,6 +1411,7 @@ int playMine(int choice1, int choice2, struct gameState *state, int handPos)
 
         // choice 1 - card to be trashed
         // choice 2 - card to be purchased
+        int i;
         int currentPlayer = whoseTurn(state);
         int j = state->hand[currentPlayer][choice1];  //store card we will trash
 
