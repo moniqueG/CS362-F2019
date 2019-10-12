@@ -691,7 +691,6 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     int currentPlayer = whoseTurn(state);
     int nextPlayer = currentPlayer + 1;
 
-    int tributeRevealedCards[2] = {-1, -1};
     int temphand[MAX_HAND];// moved above the if statement
     int drawntreasure=0;
     int cardDrawn;
@@ -808,7 +807,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     case mine:
 
         // assignment 2 - replaced with function
-        return playMine(choice1, choice2, &state, handPos);
+        return playMine(choice1, choice2, state, handPos);
 
     case remodel:
         j = state->hand[currentPlayer][choice1];  //store card we will trash
@@ -861,7 +860,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     case baron:
 
         // assignment 2 - replaced with function
-        return playBaron(choice1, &state, handPos);
+        return playBaron(choice1, state, handPos);
 
 
     case great_hall:
@@ -877,7 +876,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
     case minion:
         // assignment 2 - replaced with function
-        return playMinion(choice1, choice2, &state, handPos);
+        return playMinion(choice1, choice2, state, handPos);
 
     case steward:
         if (choice1 == 1)
@@ -905,12 +904,12 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     case tribute:
 
         // assignment 2 - replaced with function
-        return playTribute(&state, handPos);
+        return playTribute(state, handPos);
 
     case ambassador:
 
         // assignment 2 - replaced with function
-        return playAmbassador(choice1, choice2, choice3, &state, handPos);
+        return playAmbassador(choice1, choice2, choice3, state, handPos);
 
     case cutpurse:
 
@@ -1144,7 +1143,7 @@ int playBaron(int choice1, struct gameState *state, int handPos)
 {
 
     int currentPlayer = whoseTurn(state);
-    discardCard(handPos, int currentPlayer, state, 0);
+    discardCard(handPos, currentPlayer, state, 0);
 
     state->numBuys++;//Increase buys by 1!
 
@@ -1320,7 +1319,7 @@ int playAmbassador(int choice1, int choice2, int choice3, struct gameState *stat
 }
 
 
-int playTribute(struct gameState *state, int handPos);
+int playTribute(struct gameState *state, int handPos)
 {
     int i;
     int currentPlayer = whoseTurn(state);
