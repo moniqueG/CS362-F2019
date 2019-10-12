@@ -1138,7 +1138,7 @@ int updateCoins(int player, struct gameState *state, int bonus)
 }
 
 
-/* assignment #2 - a function to play the baron card */
+/* assignment #2 - a function to play the baron card in the game */
 int playBaron(int choice1, struct gameState *state, int handPos)
 {
 
