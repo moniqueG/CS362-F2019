@@ -137,7 +137,7 @@ int playMinion(int choice1, int choice2, struct gameState *state, int handPos);
 int playAmbassador(int choice1, int choice2, struct gameState *state, int handPos);
 /* a function that will execute the actions of the ambassador card */
 
-int playTribute(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus);
+int playTribute(struct gameState *state, int handPos);
 /* a function that will execute the actions of the tribute card */
 
 int playMine(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus);
