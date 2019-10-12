@@ -909,7 +909,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     case ambassador:
 
         // assignment 2 - replaced with function
-        return playAmbassador(choice1, choice2, choice3, state, handPos);
+        return playAmbassador(choice1, choice2, state, handPos);
 
     case cutpurse:
 
@@ -1153,7 +1153,7 @@ int playBaron(int choice1, struct gameState *state, int handPos)
             while(card_not_discarded) {
                 if (state->hand[currentPlayer][p] == estate) { //Found an estate card!
                     state->coins += 4;//Add 4 coins to the amount of coins
-                    discardCard(p, currentPlayer, gameState, 0);
+                    discardCard(p, currentPlayer, state, 0);
                     card_not_discarded = 0;//Exit the loop
                 }
                 else if (p > state->handCount[currentPlayer]) {
@@ -1255,7 +1255,7 @@ int playMinion(int choice1, int choice2, struct gameState *state, int handPos)
 /* assignment #2 - a function to play the ambassador card */
 int playAmbassador(int choice1, int choice2, int choice3, struct gameState *state, int handPos)
 {
-
+    int i;
     int currentPlayer = whoseTurn(state);
     int j = 0;      //used to check if player has enough cards to discard
 
