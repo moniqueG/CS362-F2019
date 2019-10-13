@@ -1181,6 +1181,7 @@ int playBaron(int choice1, struct gameState *state, int handPos)
         else {
             if (supplyCount(estate, state) > 0) {
                 gainCard(estate, state, 0, currentPlayer);//Gain an estate
+                state->supplyCount[estate]--;
 
                 if (supplyCount(estate, state) == 0) {
                     isGameOver(state);
