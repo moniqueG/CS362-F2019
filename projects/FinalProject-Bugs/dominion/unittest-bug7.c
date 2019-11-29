@@ -69,6 +69,9 @@ int testPlayTribute()
     updateCoins(player1, &state, bonus);
     memcpy(&preState, &state, sizeof(struct gameState));
 
+    // play the tribute card
+    playCard(0, 0, 0, 0, &state);
+
     printPlayersCards(0, &state);
     printPlayersCards(1, & state);
 
@@ -95,8 +98,8 @@ void setCondition(struct gameState *state)
     state->supplyCount[tribute]--;
 
     // set the last 2 cards to silver and gold for player 2
-	state->deck[player2][state->deckCount[player2]-1] = silver;
-	state->deck[player2][state->deckCount[player2]-2] = gold;
+	state->deck[player2][state->deckCount[player2]-2] = silver;
+	state->deck[player2][state->deckCount[player2]-1] = gold;
 
 }
 
