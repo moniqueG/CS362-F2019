@@ -73,14 +73,26 @@ int testPlayTribute()
     updateCoins(player1, &state, bonus);
     memcpy(&preState, &state, sizeof(struct gameState));
 
-    printPlayersCards(0, &state);
-    printPlayersCards(1, & state);
-
     // play the tribute card
     playCard(0, 0, 0, 0, &state);
 
-    printPlayersCards(0, &state);
-    printPlayersCards(1, &state);
+    // Assertion #1:  Player1 has +4 hand cards
+    result = assert(preState.handCount[player1]+4, state.handCount[player1]);
+    if (result == 0)
+    	printf("Player1 has +4 hand cards - FAIL: actual %d, expected: %d\n", state.handCount[player1], preState.handCount[player1]+4);
+    else
+    	printf("Player1 has +4 hand cards - PASS: actual %d, expected: %d\n", state.handCount[player1], preState.handCount[player1]+4);
+
+	// Assertion #2:  Player1 has 0 actions
+    result = assert(preState.numActions -1, state.numActions);
+    if (result == 0)
+    	printf("Player1 has 0 actions - FAIL: actual %d, expected: %d\n", state.numActions, preState.numActions -1);
+    else
+    	printf("Player1 has 0 actions - PASS: actual %d, expected: %d\n", state.numActions, preState.numActions -1);
+
+
+    printf("\n----- UNIT TEST - Bug#7 - complete ------\n");
+
 
 	return 0;
 }
