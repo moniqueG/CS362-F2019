@@ -66,7 +66,7 @@ int testPlayMine()
     // initialize the game
     initializeGame(2, k, randomSeed, &state);
 
-    // condition 4 -  Valid Trash Card, Purchase Card Is In Range ----    
+    // condition - Valid Trash Card, Purchase Card Is In Range ----    
     setCondition(&state);
 
     // copy the initial pre-conditions
@@ -75,9 +75,8 @@ int testPlayMine()
 
     // playCard(int handPos, int choice1, int choice2, int choice3, struct gameState *state)
 
-    // values: choice[1] = copper ($0), choice2 = silver ($3)
+    // values: choice[1] = silver ($3), choice2 = silver ($3)
     returnValue = playCard(0, 1, silver, 1, &state); 
-
 
     // Assertion #1:  playCard() return status 0
     result = assert(0, returnValue);
@@ -85,21 +84,6 @@ int testPlayMine()
     	printf("playCard() return status 0 - FAIL: actual %d, expected: %d\n", returnValue, 0);
     else
     	printf("playCard() return status 0 - PASS: actual %d, expected: %d\n", returnValue, 0);
-
-    // Assertion #2:  Player1 hand:  +1 Silver
-    result = assert(countCardType(silver, &preState,0)+1, countCardType(silver, &state,0));
-    if (result == 0)
-      printf("Player1 hand:  +1 Silver - FAIL: actual %d, expected: %d\n", countCardType(silver, &state,0), countCardType(silver, &preState,0)+1);
-    else
-      printf("Player1 hand:  +1 Silver - PASS: actual %d, expected: %d\n", countCardType(silver, &state,0), countCardType(silver, &preState,0)+1);
-
-    // Assertion #3:  Player1 hand:  -1 Copper
-    result = assert(countCardType(copper, &preState,0)-1, countCardType(copper, &state,0));
-    if (result == 0)
-      printf("Player1 hand: -1 Copper - FAIL: actual %d, expected: %d\n", countCardType(copper, &state,0), countCardType(copper, &preState,0)-1);
-    else
-      printf("Player1 hand: -1 Copper - PASS: actual %d, expected: %d\n", countCardType(copper, &state,0), countCardType(copper, &preState,0)-1);
-
 
     printf("\n----- UNIT TEST - Bug#2 - complete ------\n");
 
@@ -122,7 +106,7 @@ void setCondition(struct gameState *state)
     // provide player1 with a mine card
     state->hand[player1][0] = mine;
     state->supplyCount[mine]--;
-    state->hand[player1][1] = copper;   // valid card to trash
+    state->hand[player1][1] = silver;   // valid card to trash
 }
 
 

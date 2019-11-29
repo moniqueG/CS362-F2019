@@ -66,7 +66,7 @@ int testPlayMine()
     // initialize the game
     initializeGame(2, k, randomSeed, &state);
 
-    // condition 4 -  Valid Trash Card, Purchase Card Is In Range ----    
+    // condition -  Valid Trash Card, Purchase Card Is In Range ----    
     setCondition(&state);
 
     // copy the initial pre-conditions
