@@ -76,7 +76,7 @@ int testPlayTribute()
     playCard(0, 0, 0, 0, &state);
 
     printPlayersCards(0, &state);
-    printPlayersCards(1, & state);
+    printPlayersCards(1, &state);
 
 	return 0;
 }
@@ -100,10 +100,13 @@ void setCondition(struct gameState *state)
     state->hand[player1][0] = tribute;
     state->supplyCount[tribute]--;
 
-    // set the last 2 cards to silver and gold for player 2
-	state->deck[player2][state->deckCount[player2]-2] = silver;
+    // set the last 6 cards to copper, silver and gold for player 2
+	state->deck[player2][state->deckCount[player2]-6] = copper;
+	state->deck[player2][state->deckCount[player2]-5] = copper;
+	state->deck[player2][state->deckCount[player2]-4] = silver;
+	state->deck[player2][state->deckCount[player2]-3] = silver;
+	state->deck[player2][state->deckCount[player2]-2] = gold;
 	state->deck[player2][state->deckCount[player2]-1] = gold;
-
 }
 
 
