@@ -46,7 +46,7 @@ int testPlayTribute()
 {
 
   	// initialize variables
-  	int player1 = 0; //result = -10, bonus = 0, returnValue = -10;
+  	int player1 = 0, bonus = 0; //result = -10, returnValue = -10;
   	int randomSeed = 1234;
   	struct gameState state, preState;
   	int k[10] = {baron, gardens, ambassador, village, minion, mine, cutpurse,
