@@ -11,8 +11,12 @@
 		 		- Victory Card: +2 cards
 
 	CONDITION:
-			Next player has 2 or more cards in discard/deck with cards in deck
-			  (Next player has copper, estate at backend of deck)
+			Next player has 10 deck cards:
+				Cards 5 & 6 = estate, Cards 7 & 8 = duchy, Cards 9 & 10 = province
+
+ 	Expected Unittest Outcomes:
+        + 4 hand cards
+        + 0 actions
 
 */
 
@@ -100,13 +104,13 @@ void setCondition(struct gameState *state)
     state->hand[player1][0] = tribute;
     state->supplyCount[tribute]--;
 
-    // set the last 6 cards to copper, silver and gold for player 2
-	state->deck[player2][state->deckCount[player2]-6] = copper;
-	state->deck[player2][state->deckCount[player2]-5] = copper;
-	state->deck[player2][state->deckCount[player2]-4] = silver;
-	state->deck[player2][state->deckCount[player2]-3] = silver;
-	state->deck[player2][state->deckCount[player2]-2] = gold;
-	state->deck[player2][state->deckCount[player2]-1] = gold;
+    // set the last 6 cards to estate, duchy and province for player 2
+	state->deck[player2][state->deckCount[player2]-6] = estate;
+	state->deck[player2][state->deckCount[player2]-5] = estate;
+	state->deck[player2][state->deckCount[player2]-4] = duchy;
+	state->deck[player2][state->deckCount[player2]-3] = duchy;
+	state->deck[player2][state->deckCount[player2]-2] = province;
+	state->deck[player2][state->deckCount[player2]-1] = province;
 }
 
 
