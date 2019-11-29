@@ -51,7 +51,7 @@ int testPlayMine()
 {
 
   	// initialize variables
-  	int player1 = 0, result = -1, bonus = 0, returnValue = -10;
+  	int player1 = 0, result = -1, bonus = 0;
   	int randomSeed = 1234;
   	struct gameState state, preState;
   	int k[10] = {baron, gardens, ambassador, village, minion, mine, cutpurse,
@@ -86,12 +86,12 @@ int testPlayMine()
     else
     	printf("Player1 hand: -1 Copper - PASS: actual %d, expected: %d\n", countCardType(copper, &state,0), countCardType(copper, &preState,0)-1);
 
-    // Assertion #2:  Player1 playedCards:  no change in Copper
+    // Assertion #2:  playedCards:  no change in Copper
     result = assert(countCardType(copper, &preState,3), countCardType(copper, &state,3));
     if (result == 0)
-    	printf("Player1 playedCards:  no change in Copper - FAIL: actual %d, expected: %d\n", countCardType(copper, &state,3), countCardType(copper, &preState,3));
+    	printf("playedCards:  no change in Copper - FAIL: actual %d, expected: %d\n", countCardType(copper, &state,3), countCardType(copper, &preState,3));
     else
-    	printf("Player1 playedCards:  no change in Copper - PASS: actual %d, expected: %d\n", countCardType(copper, &state,3), countCardType(copper, &preState,3));
+    	printf("playedCards:  no change in Copper - PASS: actual %d, expected: %d\n", countCardType(copper, &state,3), countCardType(copper, &preState,3));
 
     // Assertion #3:  Player1 discard:  no change in Copper
     result = assert(countCardType(copper, &preState,1), countCardType(copper, &state,1));
@@ -174,8 +174,8 @@ int countCardType(int card, struct gameState *state, int pileToCheck)
 
   // check the deck
   if (pileToCheck == played) {
-    for (i = 0; i < state->playedCardCount[player]; i++) {
-      if (state->playedCards[player][i] == card)
+    for (i = 0; i < state->playedCardCount; i++) {
+      if (state->playedCards[i] == card)
         count++;
     }
     return count;
