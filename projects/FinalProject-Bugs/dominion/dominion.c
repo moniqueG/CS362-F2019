@@ -807,26 +807,22 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
     case mine:
         j = state->hand[currentPlayer][choice1];  //store card we will trash
-        printf("Did this Mine function fire #1?\n");
+
         if (state->hand[currentPlayer][choice1] < copper || state->hand[currentPlayer][choice1] > gold)
         {
-            printf("Did this Mine function fire #2?\n");
             return -1;
         }
 
         if (choice2 > treasure_map || choice2 < curse)
         {
-            printf("Did this Mine function fire #3?\n");
             return -1;
         }
 
         if ( (getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice2) )
         {
-            printf("Did this Mine function fire #4?\n");
             return -1;
         }
 
-        printf("Did this Mine function fire #5?\n");
         gainCard(choice2, state, 2, currentPlayer);
 
         //discard card from hand
@@ -835,10 +831,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         //discard trashed card
         for (i = 0; i < state->handCount[currentPlayer]; i++)
         {
-            printf("Did this Mine function fire #6?\n");
             if (state->hand[currentPlayer][i] == j)
             {
-                printf("Did this Mine function fire #7?\n");
                 discardCard(i, currentPlayer, state, 0);
                 break;
             }
@@ -1275,7 +1269,6 @@ int discardCard(int handPos, int currentPlayer, struct gameState *state, int tra
     //if card is not trashed, added to Played pile
     if (trashFlag < 1)
     {
-        printf("Did this run?\n");
         //add card to played pile
         state->playedCards[state->playedCardCount] = state->hand[currentPlayer][handPos];
         state->playedCardCount++;
