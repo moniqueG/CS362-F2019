@@ -820,6 +820,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
         if ( (getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice2) )
         {
+            printf("Did this Mine function fire #4?\n");
             return -1;
         }
         printf("Did this Mine function fire #2?\n");
