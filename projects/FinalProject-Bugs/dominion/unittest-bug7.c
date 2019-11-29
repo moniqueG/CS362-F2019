@@ -88,19 +88,15 @@ int assert(int expected, int actual)
 void setCondition(struct gameState *state)
 {
 	int player1 = 0;
-	//int player2 = 1;
-
+	int player2 = 1;
 
     // provide player1 with a Tribute card
     state->hand[player1][0] = tribute;
     state->supplyCount[tribute]--;
 
-	/*
-	state->deckCount[player2] = 0;
-	state->discardCount[player2] = 2;
-	state->discard[player2][0] = card1;
-	state->discard[player2][1] = card2;
-*/
+    // set the last 2 cards to silver and gold for player 2
+	state->deck[player2][state->deckCount[player2]-1] = silver;
+	state->deck[player2][state->deckCount[player2]-2] = gold;
 
 }
 
