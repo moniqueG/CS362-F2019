@@ -78,7 +78,7 @@ int testPlayMine()
     // playCard(int handPos, int choice1, int choice2, int choice3, struct gameState *state)
 
     // values: choice[1] = copper ($0), choice2 = silver ($3)
-    playCard(0, state.hand[player1][1], silver, 0, &state); 
+    playCard(0, state.hand[player1][1], silver, 1, &state); 
 
 
     // Assertion #1:  Player1 hand:  -1 Copper

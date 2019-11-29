@@ -833,6 +833,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         {
             if (state->hand[currentPlayer][i] == j)
             {
+                printf("Did this Mine function fire?\n");
                 discardCard(i, currentPlayer, state, 0);
                 break;
             }
