@@ -69,6 +69,9 @@ int testPlayTribute()
     updateCoins(player1, &state, bonus);
     memcpy(&preState, &state, sizeof(struct gameState));
 
+    printPlayersCards(0, &state);
+    printPlayersCards(1, & state);
+
     // play the tribute card
     playCard(0, 0, 0, 0, &state);
 
