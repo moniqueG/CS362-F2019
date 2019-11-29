@@ -206,12 +206,12 @@ void printPlayersCards(int player, struct gameState *state)
     	printf("  Card #%d: %d\n", i+1, state->discard[player][i]);
 
   	// print the deck
-  	printf("Player%d's %deck:\n", player+1);
+  	printf("Player%d's deck:\n", player+1);
   	for (i = 0; i < state->deckCount[player]; i++)
     	printf("  Card #%d: %d\n", i+1, state->deck[player][i]);
 
     // print the playedCards
-    prinf("Played Cards: \n");
+    printf("Played Cards: \n");
    	for (i = 0; i < state->playedCardCount; i++)
     	printf("  Card #%d: %d\n", i+1, state->playedCards[i]);   
 }
