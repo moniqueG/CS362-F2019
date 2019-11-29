@@ -807,7 +807,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
     case mine:
         j = state->hand[currentPlayer][choice1];  //store card we will trash
-        printf("Did this Mine function fire?\n");
+        printf("Did this Mine function fire #1?\n");
         if (state->hand[currentPlayer][choice1] < copper || state->hand[currentPlayer][choice1] > gold)
         {
             return -1;
@@ -822,7 +822,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         {
             return -1;
         }
-
+        printf("Did this Mine function fire #2?\n");
         gainCard(choice2, state, 2, currentPlayer);
 
         //discard card from hand
@@ -833,6 +833,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         {
             if (state->hand[currentPlayer][i] == j)
             {
+                printf("Did this Mine function fire #3?\n");
                 discardCard(i, currentPlayer, state, 0);
                 break;
             }
