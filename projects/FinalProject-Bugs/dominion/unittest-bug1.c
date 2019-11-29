@@ -73,6 +73,8 @@ int testPlayMine()
     updateCoins(player1, &state, bonus);
     memcpy(&preState, &state, sizeof(struct gameState));
 
+    printPlayersCards(0, &state);
+
     // playCard(int handPos, int choice1, int choice2, int choice3, struct gameState *state)
 
     // values: choice[1] = copper ($0), choice2 = silver ($3)
@@ -110,6 +112,7 @@ int testPlayMine()
 
     printf("\n----- UNIT TEST - Bug#1 - complete ------\n");
 
+	printPlayersCards(0, &state);
 
 	return 0;
 }
@@ -193,18 +196,22 @@ void printPlayersCards(int player, struct gameState *state)
     int i;
 
     // print the hand
-  	printf("Player's hand:\n");
+  	printf("Player%d's  hand:\n", player+1);
   	for (i = 0; i < state->handCount[player]; i++)
     	printf("  Card #%d: %d\n", i+1, state->hand[player][i]);
 
   	// print the discard
-  	printf("Player's discard pile:\n");
+  	printf("Player%d's  discard pile:\n", player+!);
   	for (i = 0; i < state->discardCount[player]; i++)
     	printf("  Card #%d: %d\n", i+1, state->discard[player][i]);
 
   	// print the deck
-  	printf("Player's deck:\n");
+  	printf("Player%d's %deck:\n",player+1);
   	for (i = 0; i < state->deckCount[player]; i++)
     	printf("  Card #%d: %d\n", i+1, state->deck[player][i]);
 
+    // print the playedCards
+    prinf("Played Cards: \n");
+   	for (i = 0; i < state->playedCardsCount; i++)
+    	printf("  Card #%d: %d\n", i+1, state->playedCards[i]);   
 }
