@@ -835,7 +835,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         //discard trashed card
         for (i = 0; i < state->handCount[currentPlayer]; i++)
         {
-            printf("Did this Mine function fire #6?\n")
+            printf("Did this Mine function fire #6?\n");
             if (state->hand[currentPlayer][i] == j)
             {
                 printf("Did this Mine function fire #7?\n");
