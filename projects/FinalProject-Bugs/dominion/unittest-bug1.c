@@ -73,8 +73,6 @@ int testPlayMine()
     updateCoins(player1, &state, bonus);
     memcpy(&preState, &state, sizeof(struct gameState));
 
-    printPlayersCards(0, &state);
-
     // playCard(int handPos, int choice1, int choice2, int choice3, struct gameState *state)
 
     // values: choice[1] = copper ($0), choice2 = silver ($3)
@@ -111,8 +109,6 @@ int testPlayMine()
 
 
     printf("\n----- UNIT TEST - Bug#1 - complete ------\n");
-
-	printPlayersCards(0, &state);
 
 	return 0;
 }
