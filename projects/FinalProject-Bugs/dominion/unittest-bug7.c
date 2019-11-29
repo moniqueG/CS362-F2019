@@ -32,6 +32,7 @@
 
 // helper function signatures
 int testPlayTribute();
+int assert(int expected, int actual);
 int countCardType(int card, struct gameState *state, int pileToCheck);
 void printPlayersCards(int player, struct gameState *state);
 
@@ -50,7 +51,7 @@ int testPlayTribute()
 {
 
   	// initialize variables
-  	int player1 = 0, bonus = 0; //result = -10, returnValue = -10;
+  	int player1 = 0, bonus = 0, result = -10;
   	int randomSeed = 1234;
   	struct gameState state, preState;
   	int k[10] = {baron, gardens, ambassador, village, minion, mine, cutpurse,
