@@ -91,7 +91,6 @@ int testPlayTribute()
     else
     	printf("Player1 has 0 actions - PASS: actual %d, expected: %d\n", state.numActions, preState.numActions -1);
 
-
     printf("\n----- UNIT TEST - Bug#7 - complete ------\n");
 
 
