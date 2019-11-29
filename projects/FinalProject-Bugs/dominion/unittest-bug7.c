@@ -45,6 +45,14 @@ int main()
 int testPlayTribute()
 {
 
+  	// initialize variables
+  	int player1 = 0; //result = -10, bonus = 0, returnValue = -10;
+  	int randomSeed = 1234;
+  	struct gameState state, preState;
+  	int k[10] = {baron, gardens, ambassador, village, minion, mine, cutpurse,
+               great_hall, tribute, smithy
+            };
+
     // -------  beginning of unit test conditions ------
     printf("\n----- UNIT TEST - Bug#7 - Tribute card overruns tributeRevealedCards[] array ------\n");
 
