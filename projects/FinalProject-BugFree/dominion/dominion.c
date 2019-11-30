@@ -1078,7 +1078,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
                 drawCard(currentPlayer, state);
             }
             else { //Action Card
-                state->numActions = state->numActions + 2;
+                if (tributeRevealedCards[i] != -1)
+                    state->numActions = state->numActions + 2;
             }
         }
 
