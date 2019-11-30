@@ -39,5 +39,11 @@ unittest-bug7: dominion.o unittest-bug7.c
 unittest-bug9: dominion.o unittest-bug9.c
 	gcc -o unittest-bug9 unittest-bug9.c -g dominion.o rngs.o $(CFLAGS)
 
+unittestresults: unittest-bug1
+	./unittest-bug1 >> unittestresults.out
+	gcov -b -f dominion.c >> unittestresults.out
+	cat dominion.c.gcov >> unittestresults.out
+
+
 clean:
 	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe
