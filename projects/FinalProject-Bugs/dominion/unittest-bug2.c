@@ -73,8 +73,6 @@ int testPlayMine()
     updateCoins(player1, &state, bonus);
     memcpy(&preState, &state, sizeof(struct gameState));
 
-    // playCard(int handPos, int choice1, int choice2, int choice3, struct gameState *state)
-
     // values: choice[1] = silver ($3), choice2 = silver ($3)
     returnValue = playCard(0, 1, silver, 1, &state); 
 
@@ -99,6 +97,7 @@ int assert(int expected, int actual)
     return 0;
 }
 
+// set the condition for player1's hand
 void setCondition(struct gameState *state)
 {
 	int player1 = 0;
