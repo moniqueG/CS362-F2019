@@ -103,9 +103,9 @@ int initializeGame(int numPlayers, int kingdomCards[10], int randomSeed,
     state->supplyCount[gold] = 30;
 
     //set number of Kingdom cards
-    for (i = adventurer; i <= treasure_map; i++)       	//loop all cards
+    for (i = adventurer; i <= treasure_map; i++)        //loop all cards
     {
-        for (j = 0; j < 10; j++)           		//loop chosen cards
+        for (j = 0; j < 10; j++)                //loop chosen cards
         {
             if (kingdomCards[j] == i)
             {
@@ -169,9 +169,9 @@ int initializeGame(int numPlayers, int kingdomCards[10], int randomSeed,
         state->discardCount[i] = 0;
         //draw 5 cards
         // for (j = 0; j < 5; j++)
-        //	{
-        //	  drawCard(i, state);
-        //	}
+        //  {
+        //    drawCard(i, state);
+        //  }
     }
 
     //set embargo tokens to 0 for all supply piles
@@ -233,7 +233,7 @@ int shuffle(int player, struct gameState *state) {
 int playCard(int handPos, int choice1, int choice2, int choice3, struct gameState *state)
 {
     int card;
-    int coin_bonus = 0; 		//tracks coins gain from actions
+    int coin_bonus = 0;         //tracks coins gain from actions
 
     //check if it is the right phase
     if (state->phase != 0)
@@ -467,7 +467,7 @@ int scoreFor (int player, struct gameState *state) {
     }
 
     //score from deck
-    for (i = 0; i < state->discardCount[player]; i++)
+    for (i = 0; i < state->deckCount[player]; i++)
     {
         if (state->deck[player][i] == curse) {
             score = score - 1;
@@ -818,7 +818,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
             return -1;
         }
 
-        if ( (getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice2) )
+        if ( (getCost(state->hand[currentPlayer][choice1]) + 3) <= getCost(choice2) )
         {
             return -1;
         }
@@ -833,7 +833,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         {
             if (state->hand[currentPlayer][i] == j)
             {
-                discardCard(i, currentPlayer, state, 0);
+                discardCard(i, currentPlayer, state, 1);
                 break;
             }
         }
@@ -843,7 +843,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     case remodel:
         j = state->hand[currentPlayer][choice1];  //store card we will trash
 
-        if ( (getCost(state->hand[currentPlayer][choice1]) + 2) > getCost(choice2) )
+        if ( (getCost(state->hand[currentPlayer][choice1]) + 2) < getCost(choice2) )
         {
             return -1;
         }
@@ -865,7 +865,6 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
 
         return 0;
-
     case smithy:
         //+3 Cards
         for (i = 0; i < 3; i++)
@@ -959,11 +958,11 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         //discard card from hand
         discardCard(handPos, currentPlayer, state, 0);
 
-		if (choice1)
+        if (choice1)
         {
             state->coins = state->coins + 2;
         }
-        else if (choice2)		//discard hand, redraw 4, other players with 5+ cards discard hand and draw 4
+        else if (choice2)       //discard hand, redraw 4, other players with 5+ cards discard hand and draw 4
         {
             //discard hand
             while(numHandCards(state) > 0)
@@ -1068,7 +1067,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
             tributeRevealedCards[1] = -1;
         }
 
-        for (i = 0; i <= 2; i ++) {
+        for (i = 0; i < 2; i ++) {
             if (tributeRevealedCards[i] == copper || tributeRevealedCards[i] == silver || tributeRevealedCards[i] == gold) { //Treasure cards
                 state->coins += 2;
             }
@@ -1078,14 +1077,17 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
                 drawCard(currentPlayer, state);
             }
             else { //Action Card
-                state->numActions = state->numActions + 2;
+                if (tributeRevealedCards[i] != -1)
+                    state->numActions = state->numActions + 2;
             }
         }
 
         return 0;
 
     case ambassador:
-        j = 0;		//used to check if player has enough cards to discard
+        j = 0;      //used to check if player has enough cards to discard
+        int revealed;
+        revealed  = state->hand[currentPlayer][choice1];
 
         if (choice2 > 2 || choice2 < 0)
         {
@@ -1099,7 +1101,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
         for (i = 0; i < state->handCount[currentPlayer]; i++)
         {
-            if (i != handPos && i == state->hand[currentPlayer][choice1] && i != choice1)
+            if (i != handPos && state->hand[currentPlayer][i] == state->hand[currentPlayer][choice1] && i != choice1)
             {
                 j++;
             }
@@ -1132,7 +1134,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         {
             for (i = 0; i < state->handCount[currentPlayer]; i++)
             {
-                if (state->hand[currentPlayer][i] == state->hand[currentPlayer][choice1])
+                if (state->hand[currentPlayer][i] == revealed)
                 {
                     discardCard(i, currentPlayer, state, 1);
                     break;
@@ -1278,7 +1280,7 @@ int discardCard(int handPos, int currentPlayer, struct gameState *state, int tra
     state->hand[currentPlayer][handPos] = -1;
 
     //remove card from player's hand
-    if ( handPos == (state->handCount[currentPlayer] - 1) ) 	//last card in hand array is played
+    if ( handPos == (state->handCount[currentPlayer] - 1) )     //last card in hand array is played
     {
         //reduce number of cards in hand
         state->handCount[currentPlayer]--;
@@ -1370,4 +1372,3 @@ int updateCoins(int player, struct gameState *state, int bonus)
 
 
 //end of dominion.c
-
