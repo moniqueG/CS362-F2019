@@ -29,6 +29,18 @@ unittest-bug5: dominion.o unittest-bug5.c
 
 unittest-bug10: dominion.o unittest-bug10.c
 	gcc -o unittest-bug10 unittest-bug10.c -g dominion.o rngs.o $(CFLAGS)
+  
+unittest-bug1: dominion.o unittest-bug1.c
+	gcc -o unittest-bug1 unittest-bug1.c -g dominion.o rngs.o $(CFLAGS)
+
+unittest-bug2: dominion.o unittest-bug2.c
+	gcc -o unittest-bug2 unittest-bug2.c -g dominion.o rngs.o $(CFLAGS)
+
+unittest-bug7: dominion.o unittest-bug7.c
+	gcc -o unittest-bug7 unittest-bug7.c -g dominion.o rngs.o $(CFLAGS)
+
+unittest-bug9: dominion.o unittest-bug9.c
+	gcc -o unittest-bug9 unittest-bug9.c -g dominion.o rngs.o $(CFLAGS)
 
 unittestresults: unittest-bug3 unittest-bug5 unittest-bug10
 	./unittest-bug3 >> unittestresult.out
